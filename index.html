@@ -1,359 +1,134 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="pl" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LazyDuck Network — Independent Tech Studio</title>
+    <title>Aktiv Labs</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            bg: '#0B0F17',
+                            card: '#131B2A',
+                            border: '#1E293B',
+                            accent: '#10B981',
+                            cyan: '#06B6D4'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        :root {
-            --bg-color: #080808;
-            --card-bg: #121215;
-            --card-hover-bg: #18181c;
-            --accent-yellow: #ffee00;
-            --glow-color: rgba(255, 238, 0, 0.35);
-            --text-main: #ffffff;
-            --text-muted: #8e8e93;
-            --border-color: #222226;
-            --orange-author: #ff8800;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
-
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            overflow-x: hidden;
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: #0B0F17;
+            color: #F8FAFC;
         }
 
-        /* HEADER / NAVBAR */
-        header {
-            width: 100%;
-            max-width: 1100px;
-            padding: 1.5rem 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            color: var(--text-main);
-            font-weight: 800;
-            font-size: 1.25rem;
-            letter-spacing: -0.5px;
-        }
-
-        .logo-duck {
-            font-size: 1.8rem;
-            filter: drop-shadow(0 0 12px var(--accent-yellow));
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .logo:hover .logo-duck {
-            transform: scale(1.2) rotate(-8deg);
-        }
-
-        nav {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        nav a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 500;
-            transition: color 0.2s ease;
-        }
-
-        nav a:hover {
-            color: var(--accent-yellow);
-        }
-
-        nav a.nav-docs-btn {
-            background: #1a1a1e;
-            color: var(--accent-yellow);
-            padding: 0.5rem 1.1rem;
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-            transition: all 0.2s ease;
-        }
-
-        nav a.nav-docs-btn:hover {
-            border-color: var(--accent-yellow);
-            box-shadow: 0 0 12px var(--glow-color);
-            transform: translateY(-1px);
-        }
-
-        /* HERO SECTION */
-        main {
-            width: 100%;
-            max-width: 900px;
-            padding: 3rem 1.5rem 2rem 1.5rem;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .hero-duck-container {
-            position: relative;
-            margin-bottom: 2rem;
-        }
-
-        .hero-duck {
-            font-size: 6rem;
-            position: relative;
-            z-index: 2;
-            filter: drop-shadow(0 0 30px var(--accent-yellow));
-            animation: float 4s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .glow-aura {
+        /* Ambient Glow Orbs */
+        .glow-orb {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 160px;
-            height: 160px;
-            background: radial-gradient(circle, var(--accent-yellow) 0%, rgba(255, 238, 0, 0) 70%);
-            opacity: 0.35;
             border-radius: 50%;
-            z-index: 1;
-            animation: pulse 3s infinite alternate ease-in-out;
+            filter: blur(140px);
+            opacity: 0.15;
+            pointer-events: none;
         }
 
-        @keyframes pulse {
-            0% { transform: translate(-50%, -50%) scale(0.85); opacity: 0.25; }
-            100% { transform: translate(-50%, -50%) scale(1.35); opacity: 0.5; }
+        /* Glassmorphism Card */
+        .glass-box {
+            background: linear-gradient(135deg, rgba(19, 27, 42, 0.6) 0%, rgba(11, 15, 23, 0.8) 100%);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
         }
 
-        .badge-tag {
-            background: rgba(255, 238, 0, 0.1);
-            color: var(--accent-yellow);
-            border: 1px solid rgba(255, 238, 0, 0.3);
-            font-size: 0.8rem;
-            font-weight: 700;
-            padding: 6px 14px;
-            border-radius: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 1.2rem;
-        }
-
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 900;
-            letter-spacing: -1.5px;
-            margin-bottom: 1rem;
-            line-height: 1.1;
-            background: linear-gradient(180deg, #ffffff 0%, #a0a0a0 100%);
+        /* Gradient Accent Text */
+        .gradient-text {
+            background: linear-gradient(135deg, #10B981 0%, #06B6D4 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-
-        .subtitle {
-            color: var(--text-muted);
-            font-size: 1.2rem;
-            line-height: 1.6;
-            margin-bottom: 2.5rem;
-            max-width: 640px;
-        }
-
-        /* BUTTONS GROUP */
-        .cta-group {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background-color: var(--accent-yellow);
-            color: #000;
-            padding: 0.9rem 2rem;
-            border-radius: 30px;
-            font-weight: 800;
-            font-size: 1.05rem;
-            text-decoration: none;
-            box-shadow: 0 0 25px var(--glow-color);
-            transition: all 0.25s ease;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 35px var(--accent-yellow);
-            background-color: #fffb00;
-        }
-
-        .cta-secondary {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background-color: #141418;
-            color: #ffffff;
-            padding: 0.9rem 2rem;
-            border-radius: 30px;
-            font-weight: 700;
-            font-size: 1.05rem;
-            text-decoration: none;
-            border: 1px solid var(--border-color);
-            transition: all 0.25s ease;
-        }
-
-        .cta-secondary:hover {
-            transform: translateY(-3px);
-            border-color: var(--accent-yellow);
-            color: var(--accent-yellow);
-            background-color: #1a1a20;
-        }
-
-        /* DISCORD STYLE GRID / CARDS */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1.5rem;
-            width: 100%;
-            margin-top: 4.5rem;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 2rem;
-            border-radius: 20px;
-            text-align: left;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card:hover {
-            background: var(--card-hover-bg);
-            border-color: var(--accent-yellow);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5), 0 0 15px var(--glow-color);
-            transform: translateY(-5px);
-        }
-
-        .card-tag {
-            font-size: 0.75em;
-            font-weight: 700;
-            color: var(--accent-yellow);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.5rem;
-        }
-
-        .card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.6rem;
-            color: var(--text-main);
-            font-weight: 800;
-        }
-
-        .card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.55;
-        }
-
-        /* FOOTER */
-        footer {
-            width: 100%;
-            padding: 2.5rem 1.5rem;
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            border-top: 1px solid var(--border-color);
-            margin-top: 5rem;
-            background: #050505;
-        }
-
-        footer strong {
-            color: var(--orange-author);
-        }
     </style>
 </head>
-<body>
+<body class="min-h-screen flex flex-col items-center justify-between relative overflow-hidden selection:bg-emerald-500 selection:text-slate-950 p-6">
 
-    <header>
-        <a href="#" class="logo">
-            <span class="logo-duck">🦆</span>
-            <span>LazyDuck Network</span>
-        </a>
-        <nav>
-            <a href="https://github.com/LazyDuckNetwork" target="_blank">GitHub</a>
-            <a href="./docs/#/" class="nav-docs-btn">Dokumentacja 📚</a>
-        </nav>
+    <!-- Background Orbs -->
+    <div class="glow-orb w-[500px] h-[500px] bg-emerald-500 -top-32 -left-32"></div>
+    <div class="glow-orb w-[500px] h-[500px] bg-cyan-500 -bottom-32 -right-32"></div>
+
+    <!-- Top Spacer / Brand Tag -->
+    <header class="w-full max-w-xl text-center pt-8 z-10">
+        <span class="inline-flex items-center space-x-2 text-xs font-mono uppercase tracking-widest text-slate-500 bg-slate-900/60 border border-slate-800 px-3 py-1 rounded-full backdrop-blur-md">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>Little studio from Poland 🇵🇱</span>
+        </span>
     </header>
 
-    <main>
-        <div class="hero-duck-container">
-            <div class="glow-aura"></div>
-            <div class="hero-duck">🦆</div>
-        </div>
+    <!-- MAIN CENTER CARD -->
+    <main class="w-full max-w-lg my-auto z-10">
+        <div class="glass-box rounded-3xl p-8 sm:p-10 text-center shadow-2xl relative overflow-hidden">
+            
+            <!-- Glowing Inner Edge -->
+            <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-500/40 to-transparent"></div>
 
-        <div class="badge-tag">Indie Tech Studio</div>
+            <!-- Logo Mark (Styled Icon matching your Aktiv Labs Logo) -->
+            <div class="mx-auto w-20 h-20 mb-8 rounded-2xl bg-gradient-to-br from-emerald-500 via-cyan-500 to-blue-600 p-[2px] shadow-xl shadow-emerald-500/20">
+                <div class="w-full h-full bg-[#0B0F17] rounded-[14px] flex items-center justify-center relative overflow-hidden">
+                    <!-- Custom SVG "A" Arrow Logo -->
+                    <svg class="w-10 h-10 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 3L2 21h20L12 3z" />
+                        <path d="M12 3l6 12H6l6-12z" fill="currentColor" fill-opacity="0.2" />
+                        <path d="M7 15h10" />
+                        <path d="M15 11l4-4" stroke="#06B6D4" stroke-width="2" />
+                    </svg>
+                </div>
+            </div>
 
-        <h1>LazyDuck Network</h1>
-        <p class="subtitle">
-            Niezależne studio technologiczne tworzące proste, szybkie i dopracowane narzędzia pod osłoną mroku.
-        </p>
+            <!-- Title -->
+            <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white mb-2">
+                Aktiv<span class="gradient-text">Labs</span>
+            </h1>
 
-        <div class="cta-group">
-            <a href="./docs/#/" class="cta-button">
-                Otwórz Dokumentację →
+            <!-- Subtitle -->
+            <p class="text-sm font-medium text-slate-400 mb-6 tracking-wide">
+                Little studio from Poland
+            </p>
+
+            <!-- Statement -->
+            <div class="bg-slate-900/80 border border-slate-800/80 rounded-xl p-4 mb-8 text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
+                Właśnie wystartowaliśmy.<br />Pracujemy nad pierwszymi narzędziami internetowymi.
+            </div>
+
+            <!-- GitHub Button -->
+            <a href="https://github.com/AktivLabs" target="_blank" rel="noopener noreferrer" 
+               class="inline-flex items-center justify-center space-x-2.5 w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-3.5 px-6 rounded-xl text-sm transition-all shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/30 hover:scale-[1.02] active:scale-[0.98]">
+                <i class="fab fa-github text-lg"></i>
+                <span>github.com/AktivLabs</span>
+                <i class="fas fa-arrow-up-right-from-square text-xs ml-1 opacity-75"></i>
             </a>
-            <a href="https://github.com/LazyDuckNetwork" target="_blank" class="cta-secondary">
-                Odwiedź GitHub
-            </a>
-        </div>
 
-        <div class="grid" id="projects">
-            <div class="card">
-                <div class="card-tag">Baza Wiedzy</div>
-                <h3>📚 Centrum Dokumentacji</h3>
-                <p>Błyskawiczne przewodniki, instrukcje oraz nowości dotyczące naszych projektów w nowej oprawie.</p>
-            </div>
-
-            <div class="card">
-                <div class="card-tag">Wydajność</div>
-                <h3>⚡ Minimalist Tech</h3>
-                <p>Narzędzia pozbawione niepotrzebnych rozpraszaczy. Skupienie na wydajności i estetyce Dark Mode.</p>
-            </div>
-
-            <div class="card">
-                <div class="card-tag">Design</div>
-                <h3>💡 High Contrast Glow</h3>
-                <p>Spójny język projektowania oparty na głębokim czarnym tle i jaskrawych, żółtych akcentach.</p>
-            </div>
         </div>
     </main>
 
-    <footer>
-        <p>© 2026 LazyDuck Network • Stworzone przez <strong>Ewewerban</strong></p>
+    <!-- FOOTER -->
+    <footer class="w-full max-w-xl text-center pb-8 z-10 text-xs text-slate-600 font-mono">
+        © 2026 Aktiv Labs. Wszystkie prawa zastrzeżone.
     </footer>
 
 </body>
